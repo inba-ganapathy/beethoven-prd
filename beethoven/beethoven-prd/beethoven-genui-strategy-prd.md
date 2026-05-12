@@ -114,7 +114,7 @@ Enterprise users increasingly expect AI assistants to *show* them information, n
 
 ### 2.3 The Opportunity
 
-The constraint-based generation model — where statistical data profiling pre-constrains the component search space before any LLM call — is both academically validated (VizML/MIT CHI 2020, Draco/UW InfoVis 2018, Portal UX Agent/arxiv 2511.00843) and commercially proven (Tableau Pulse's fixed insight taxonomy achieves enterprise trust precisely *because* of its determinism). Combining this with a living, quality-evolving semantic cache and a multi-surface rendering pipeline creates a system that general-purpose platforms cannot replicate without years of investment.
+The constraint-based generation model — where statistical data profiling pre-constrains the component search space before any LLM call — is both academically informed (VizML/MIT CHI 2019, Draco 2/CMU VIS 2023, Portal UX Agent/arxiv 2511.00843) and commercially proven (Tableau Pulse's fixed insight taxonomy achieves enterprise trust precisely *because* of its determinism). Combining this with a living, quality-evolving semantic cache and a multi-surface rendering pipeline creates a system that general-purpose platforms cannot replicate without years of investment.
 
 ---
 
@@ -246,7 +246,7 @@ The system SHALL emit a structured audit log entry for every generation event co
 
 ## 7. Competitive Position
 
-The Gemini deep research confirms a critical architectural distinction: **StateSnapshot vs. StateDelta**. Claude Artifacts and ChatGPT Canvas are StateSnapshot systems — every turn regenerates the full UI, discarding interactive state. A2UI v0.8's adjacency list format with path-based two-way data binding is a StateDelta system — only changes to the data model are transmitted. Beethoven's architecture must adopt the StateDelta model.
+The Gemini deep research confirms a critical architectural distinction: **StateSnapshot vs. StateDelta**. Claude Artifacts and ChatGPT Canvas are StateSnapshot systems — every turn regenerates the full UI, discarding interactive state. A2UI v0.8's adjacency list format with path-based one-way data binding (server→client) and separate event callbacks (client→server) is a StateDelta system — only changes to the data model are transmitted. Beethoven's architecture must adopt the StateDelta model.
 
 Google A2UI's path-based binding (`/form/customer_name`) maps directly to Salesforce field names. This is architecturally significant: A2UI paths are a natural encoding for Salesforce's object.field notation (`Opportunity.Amount`). Beethoven should implement A2UI as the primary open-standard output format and extend it with Salesforce-specific path conventions.
 
@@ -274,7 +274,7 @@ For decisions that can be resolved deterministically from data properties (cardi
 Where `K` is the constraint set and `P` is the data profile. The cost function penalizes violations of hard design constraints (accessibility, cardinality limits, color-blind safety) and soft preferences (the user's historical component choices). This transforms the LLM's role from *guessor* to *confirmer*.
 
 **Principle 3 — Delta Over Snapshot**
-A2UI v0.8's adjacency list format with path-based two-way data binding enables a reactive model where only data model changes are transmitted. Beethoven's session layer adopts this model: after the initial `StateSnapshot`, all subsequent interactions produce `StateDelta` objects. This eliminates full re-renders, preserves user interactive state, and reduces generation latency for follow-up queries by an order of magnitude.
+A2UI v0.8's adjacency list format with path-based one-way data binding (server→client) and separate event callbacks (client→server) enables a reactive model where only data model changes are transmitted. Beethoven's session layer adopts this model: after the initial `StateSnapshot`, all subsequent interactions produce `StateDelta` objects. This eliminates full re-renders, preserves user interactive state, and reduces generation latency for follow-up queries by an order of magnitude.
 
 ---
 
@@ -539,7 +539,7 @@ Each renderer implements the `BaseRenderer` protocol:
 
 **AdaptiveCardRenderer**: Maps to Microsoft Adaptive Cards JSON schema. Containers → `Container`. Metric cards → `FactSet`. Tables → `ColumnSet + Column`. Action buttons → `Action.Submit`. Note: Adaptive Cards cannot interact with Salesforce LDS cache — data binding is static at render time for this target.
 
-**A2UIRenderer**: The primary open-standard output format. Implements A2UI v0.8 adjacency list with path-based two-way data binding. Each component in the `ComponentPlan` maps to an A2UI node with:
+**A2UIRenderer**: The primary open-standard output format. Implements A2UI v0.8 adjacency list with path-based one-way data binding (server→client via `dataModelUpdate`) and user action callbacks (client→server). Each component in the `ComponentPlan` maps to an A2UI node with:
 - `id`: stable component identifier
 - `type`: A2UI component type (mapped from Beethoven semantic_role)
 - `children`: adjacency list references
@@ -744,9 +744,9 @@ I am building a comprehensive technical strategy for an enterprise-grade AI-powe
 
 AREA 1: Statistical Visualization Recommendation — Production Depth
 
-1a. What is the exact production status of VizML (MIT CHI 2020)? Has it been adopted in any commercial product, or is there a successor paper/system published 2022-2026? What were its documented limitations at scale — specifically, its failure modes on enterprise CRM data (sparse fields, high-null datasets, mixed semantic types)?
+1a. VizML (MIT CHI 2019) remains an academic project with no confirmed commercial deployment. What successor papers or systems have emerged 2019-2026? What are documented failure modes on enterprise CRM data (sparse fields, high-null datasets, mixed semantic types)?
 
-1b. Draco 2 (UW 2023) introduced learnable soft constraint weights from empirical perception studies. Is there a publicly available Python implementation (the draco PyPI package)? What is the API for defining custom soft constraints? Does it support runtime constraint weight updates without recompilation?
+1b. Draco 2 (CMU, VIS 2023, pip install draco v2.0.1) introduced learnable soft constraint weights. What is the API for defining custom soft constraints at runtime? Does Clingo ASP solver re-execution count as "recompilation" in practice?
 
 1c. How does ThoughtSpot's AI Analytics (Sage) technically approach automatic chart type selection? Does it use a statistical profiling layer, a fine-tuned classification model, or LLM reasoning? What are its documented failure modes on enterprise financial data?
 
@@ -762,7 +762,7 @@ AREA 2: A2UI v0.8 — Specification Depth
 
 2b. In A2UI's adjacency list format — what is the exact JSON schema for a node entry? What fields are required vs. optional? How are parent-child relationships encoded (by ID reference, by nesting, or by explicit edge list)?
 
-2c. How does A2UI's two-way path binding handle Salesforce's relationship fields? For example, can a path like `/opportunity/account/name` traverse a lookup relationship, or is the binding limited to flat object fields?
+2c. A2UI uses one-way data binding (server→client via BoundValue path objects) with separate userAction callbacks (client→server). How does the path binding handle Salesforce relationship fields — can a path like `/opportunity/account/name` traverse a lookup relationship, or is binding limited to flat fields?
 
 2d. A2UI recommends ThreadLocal for callback storage in concurrent scenarios. In a Python async context (FastAPI + asyncio), what is the equivalent concurrency-safe pattern for managing callback state across concurrent A2UI sessions? Is there documented guidance from the A2UI spec for async implementations?
 
