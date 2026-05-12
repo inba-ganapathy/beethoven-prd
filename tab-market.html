@@ -1,0 +1,564 @@
+<style>
+  /* Market & Competition local styles — prefix .mkt- */
+
+  .mkt-stat-row {
+    display: flex;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .mkt-stat-card {
+    flex: 1;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.75rem 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mkt-stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .mkt-stat-card.mkt-emerald::before { background: var(--accent); }
+  .mkt-stat-card.mkt-indigo::before  { background: var(--primary); }
+  .mkt-stat-card.mkt-amber::before   { background: var(--warn); }
+
+  .mkt-stat-number {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .mkt-stat-card.mkt-emerald .mkt-stat-number { color: var(--accent); }
+  .mkt-stat-card.mkt-indigo  .mkt-stat-number { color: var(--primary); }
+  .mkt-stat-card.mkt-amber   .mkt-stat-number { color: var(--warn); }
+
+  .mkt-stat-label {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  /* Competitive table */
+  .mkt-comp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin: 1.5rem 0;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .mkt-comp-table thead th {
+    background: var(--surface3);
+    color: var(--text);
+    padding: 0.75rem 0.875rem;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .mkt-comp-table tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+
+  .mkt-comp-table tbody tr:hover {
+    background: var(--surface2);
+  }
+
+  .mkt-comp-table tbody td {
+    padding: 0.7rem 0.875rem;
+    color: var(--muted);
+    vertical-align: middle;
+  }
+
+  .mkt-comp-table tbody td:first-child {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* Beethoven highlight row */
+  .mkt-beethoven-row {
+    background: rgba(99, 102, 241, 0.12) !important;
+    border-left: 3px solid var(--primary) !important;
+  }
+
+  .mkt-beethoven-row td {
+    color: var(--text) !important;
+    font-weight: 600 !important;
+  }
+
+  .mkt-beethoven-row td:first-child {
+    color: var(--primary) !important;
+  }
+
+  /* Quadrant map */
+  .mkt-quadrant-wrap {
+    margin: 1.5rem 0;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+
+  .mkt-quadrant-axis-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-style: italic;
+    padding: 0 8px;
+  }
+
+  .mkt-quadrant-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56%;   /* 16:9-ish aspect ratio */
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  /* grid lines */
+  .mkt-quadrant-container::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 0; right: 0;
+    height: 1px;
+    background: var(--border);
+    z-index: 1;
+  }
+
+  .mkt-quadrant-container::after {
+    content: '';
+    position: absolute;
+    left: 50%; top: 0; bottom: 0;
+    width: 1px;
+    background: var(--border);
+    z-index: 1;
+  }
+
+  .mkt-q-label {
+    position: absolute;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 4px 8px;
+    border-radius: 4px;
+    z-index: 2;
+  }
+
+  .mkt-q-label.q1 {
+    top: 8px; right: 10px;
+    color: var(--primary);
+    background: rgba(99,102,241,0.12);
+    border: 1px solid rgba(99,102,241,0.3);
+    text-shadow: 0 0 12px rgba(99,102,241,0.5);
+  }
+
+  .mkt-q-label.q2 {
+    top: 8px; left: 10px;
+    color: var(--muted);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+  }
+
+  .mkt-q-label.q3 {
+    bottom: 8px; left: 10px;
+    color: var(--muted);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+  }
+
+  .mkt-q-label.q4 {
+    bottom: 8px; right: 10px;
+    color: var(--warn);
+    background: rgba(245,158,11,0.1);
+    border: 1px solid rgba(245,158,11,0.25);
+  }
+
+  /* Y-axis label rotated */
+  .mkt-y-axis-label {
+    position: absolute;
+    left: -38px;
+    top: 50%;
+    transform: translateY(-50%) rotate(-90deg);
+    font-size: 0.7rem;
+    color: var(--muted);
+    font-style: italic;
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+  }
+
+  .mkt-quadrant-outer {
+    position: relative;
+    padding-left: 44px;
+  }
+
+  /* Dots */
+  .mkt-dot {
+    position: absolute;
+    border-radius: 50%;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+  }
+
+  .mkt-dot-label {
+    position: absolute;
+    font-size: 0.68rem;
+    color: var(--text);
+    white-space: nowrap;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 4px;
+    font-weight: 500;
+  }
+
+  .mkt-dot-circle {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--muted);
+    border: 2px solid var(--surface3);
+  }
+
+  .mkt-dot-circle.indigo {
+    background: var(--primary);
+    border-color: rgba(99,102,241,0.4);
+  }
+
+  .mkt-dot-circle.emerald { background: var(--accent); }
+  .mkt-dot-circle.amber   { background: var(--warn); }
+
+  /* Beethoven pulsing dot */
+  .mkt-beethoven-dot {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--primary);
+    box-shadow: 0 0 0 0 rgba(99,102,241,0.7);
+    animation: mkt-pulse 1.8s ease-in-out infinite;
+    border: 2px solid rgba(255,255,255,0.3);
+  }
+
+  @keyframes mkt-pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(99,102,241,0.7); }
+    70%  { box-shadow: 0 0 0 10px rgba(99,102,241,0); }
+    100% { box-shadow: 0 0 0 0 rgba(99,102,241,0); }
+  }
+
+  /* Deep-dive cards */
+  .mkt-dive-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem 1.375rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .mkt-dive-title {
+    font-size: 0.925rem;
+    font-weight: 700;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .mkt-dive-body {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .mkt-dive-edge {
+    font-size: 0.775rem;
+    font-weight: 600;
+    color: var(--accent);
+    border-top: 1px solid var(--border);
+    padding-top: 0.5rem;
+    margin-top: 0.25rem;
+  }
+
+  /* Callout variants */
+  .callout.mkt-emerald-callout {
+    border-left-color: var(--accent);
+    background: rgba(16, 185, 129, 0.07);
+  }
+
+  .callout.mkt-indigo-callout {
+    border-left-color: var(--primary);
+    background: rgba(99, 102, 241, 0.07);
+  }
+
+  .callout.mkt-amber-callout {
+    border-left-color: var(--warn);
+    background: rgba(245, 158, 11, 0.07);
+  }
+
+  @media (max-width: 640px) {
+    .mkt-stat-row { flex-direction: column; }
+    .mkt-stat-number { font-size: 2.25rem; }
+  }
+</style>
+
+<!-- ===== MARKET & COMPETITION ===== -->
+
+<h2 class="section-heading">Market &amp; Competition</h2>
+
+<!-- 1. Market Opportunity callout -->
+<div class="callout mkt-emerald-callout">
+  <strong>Market Opportunity</strong><br>
+  The generative UI segment within the CRM market alone is projected to reach billions by 2028 (Gartner, Forrester, IDC).
+  The primary driver: enterprises need to replace static dashboards with agentic interfaces that adapt in real-time to user
+  context. The &ldquo;hyper-personalization of the employee experience&rdquo; is not a buzzword &mdash; it is the end of
+  the development backlog era.
+</div>
+
+<!-- 2. Stat row -->
+<div class="mkt-stat-row">
+  <div class="mkt-stat-card mkt-emerald">
+    <div class="mkt-stat-number">60%+</div>
+    <div class="mkt-stat-label">Semantic cache hit rate in mature deployments</div>
+  </div>
+  <div class="mkt-stat-card mkt-indigo">
+    <div class="mkt-stat-number">10x</div>
+    <div class="mkt-stat-label">Faster repeat generation vs cold LLM path</div>
+  </div>
+  <div class="mkt-stat-card mkt-amber">
+    <div class="mkt-stat-number">2028</div>
+    <div class="mkt-stat-label">Year analysts project billions in CRM GenUI market</div>
+  </div>
+</div>
+
+<!-- 3. Competitive Landscape Table -->
+<h3 class="subsection-heading">Competitive Landscape</h3>
+<table class="mkt-comp-table">
+  <thead>
+    <tr>
+      <th>Competitor</th>
+      <th>UI Generation Model</th>
+      <th>CRM Schema Aware</th>
+      <th>Security Layer</th>
+      <th>Stateful Sessions</th>
+      <th>Multi-Surface</th>
+      <th>Beethoven&rsquo;s Edge</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ServiceNow Otto AI</td>
+      <td>Catalog-based selection</td>
+      <td>Partial</td>
+      <td>Basic</td>
+      <td>✗</td>
+      <td>ServiceNow only</td>
+      <td>Hybrid + SF-native depth</td>
+    </tr>
+    <tr>
+      <td>Claude Artifacts</td>
+      <td>Freeform React sandbox</td>
+      <td>✗</td>
+      <td>✗</td>
+      <td>✗</td>
+      <td>✗</td>
+      <td>Schema constraints + FLS</td>
+    </tr>
+    <tr>
+      <td>Gemini Canvas</td>
+      <td>Generic mini-app gen</td>
+      <td>✗</td>
+      <td>✗</td>
+      <td>✗</td>
+      <td>✗</td>
+      <td>Statistical profiling</td>
+    </tr>
+    <tr>
+      <td>Google A2UI</td>
+      <td>Generic catalog primitives</td>
+      <td>✗</td>
+      <td>✗</td>
+      <td>✓</td>
+      <td>Partial</td>
+      <td>SF-specific composites + cache</td>
+    </tr>
+    <tr>
+      <td>Tableau Pulse</td>
+      <td>Fixed insight taxonomy</td>
+      <td>Partial</td>
+      <td>Einstein TL</td>
+      <td>✗</td>
+      <td>Partial</td>
+      <td>General-purpose + composable</td>
+    </tr>
+    <tr class="mkt-beethoven-row">
+      <td>Beethoven</td>
+      <td>Constrained gen + stats</td>
+      <td><strong>✓</strong></td>
+      <td><strong>Full FLS</strong></td>
+      <td><strong>✓</strong></td>
+      <td><strong>✓</strong></td>
+      <td>The platform itself</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- 4. Strategic Position Map -->
+<h3 class="subsection-heading">Strategic Position Map</h3>
+<div class="mkt-quadrant-wrap">
+  <div class="mkt-quadrant-axis-labels">
+    <span>← Generic</span>
+    <span style="font-weight:700;color:var(--text);">Generality</span>
+    <span>CRM-Specific →</span>
+  </div>
+  <div class="mkt-quadrant-outer">
+    <div class="mkt-y-axis-label">Intelligence (Rule-based ←→ Adaptive)</div>
+    <div class="mkt-quadrant-container" id="mkt-quad-container">
+
+      <!-- Quadrant labels -->
+      <div class="mkt-q-label q1">Beethoven Target</div>
+      <div class="mkt-q-label q2">Generic AI (Claude, Gemini)</div>
+      <div class="mkt-q-label q3">Static Dashboards</div>
+      <div class="mkt-q-label q4">Tableau Pulse</div>
+
+      <!-- Claude Artifacts: top-left ~(18%, 22%) -->
+      <div class="mkt-dot" style="left:18%;top:22%;">
+        <div class="mkt-dot-circle"></div>
+        <span class="mkt-dot-label">Claude Artifacts</span>
+      </div>
+
+      <!-- Gemini Canvas: top-left ~(28%, 16%) -->
+      <div class="mkt-dot" style="left:28%;top:16%;">
+        <div class="mkt-dot-circle"></div>
+        <span class="mkt-dot-label">Gemini Canvas</span>
+      </div>
+
+      <!-- A2UI: center-left ~(42%, 30%) -->
+      <div class="mkt-dot" style="left:42%;top:30%;">
+        <div class="mkt-dot-circle emerald"></div>
+        <span class="mkt-dot-label">A2UI</span>
+      </div>
+
+      <!-- Tableau Pulse: bottom-right ~(72%, 76%) -->
+      <div class="mkt-dot" style="left:72%;top:76%;">
+        <div class="mkt-dot-circle amber"></div>
+        <span class="mkt-dot-label">Tableau Pulse</span>
+      </div>
+
+      <!-- Beethoven: top-right ~(84%, 14%) — pulsing -->
+      <div class="mkt-dot" style="left:84%;top:14%;">
+        <div class="mkt-beethoven-dot"></div>
+        <span class="mkt-dot-label" style="color:var(--primary);font-weight:700;">Beethoven</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 5. Competitor Deep Dives (2×2 card grid) -->
+<h3 class="subsection-heading">Competitor Deep Dives</h3>
+<div class="card-grid-2">
+
+  <div class="mkt-dive-card">
+    <div class="mkt-dive-title">
+      <span class="badge" style="background:rgba(245,158,11,0.15);color:var(--warn);">ServiceNow</span>
+      Otto AI
+    </div>
+    <div class="mkt-dive-body">
+      Catalog approach &mdash; selects from pre-defined human-designed components. Maximum reliability but
+      limited to pre-defined structures. Cannot handle novel CRM data patterns. No statistical profiling
+      layer ensures zero adaptation to emergent data shapes or sparse fields.
+    </div>
+    <div class="mkt-dive-edge">
+      Beethoven advantage: hybrid model handles both structured (catalog) and novel (generative) patterns.
+    </div>
+  </div>
+
+  <div class="mkt-dive-card">
+    <div class="mkt-dive-title">
+      <span class="badge" style="background:rgba(16,185,129,0.15);color:var(--accent);">Google</span>
+      A2UI v0.8
+    </div>
+    <div class="mkt-dive-body">
+      Closest open-standard analog. Defines generic primitives (Button, Card, TextField). No CRM schema
+      awareness &mdash; treats <code style="font-size:0.78rem;color:var(--primary);">Opportunity.StageName</code>
+      as a plain string. No semantic caching. StateDelta ✓ (adjacency list + path binding).
+    </div>
+    <div class="mkt-dive-edge">
+      Beethoven strategy: implement A2UI as primary open-standard output format while extending with SF-specific path conventions.
+    </div>
+  </div>
+
+  <div class="mkt-dive-card">
+    <div class="mkt-dive-title">
+      <span class="badge" style="background:rgba(99,102,241,0.15);color:var(--primary);">Tableau</span>
+      Pulse
+    </div>
+    <div class="mkt-dive-body">
+      Proves the &ldquo;constrained generation&rdquo; market. Fixed insight taxonomy (trends, outliers,
+      unexpected values, contributors, forecast, pace-to-goal, correlated metrics). High user trust because
+      deterministic. But not a general UI platform &mdash; cannot handle ad-hoc queries or novel data shapes.
+      Einstein Trust Layer is the reference implementation for Beethoven&rsquo;s Governance Proxy.
+    </div>
+    <div class="mkt-dive-edge">
+      Reference model: Einstein Trust Layer architecture directly informs Beethoven&rsquo;s governance design.
+    </div>
+  </div>
+
+  <div class="mkt-dive-card">
+    <div class="mkt-dive-title">
+      <span class="badge" style="background:rgba(239,68,68,0.12);color:var(--danger);">Enterprise Gap</span>
+      Claude Artifacts / Gemini Canvas
+    </div>
+    <div class="mkt-dive-body">
+      StateSnapshot systems &mdash; full re-render every turn. No schema validation, no design system
+      compliance, no FLS enforcement. Powerful for developers and designers. Unusable for enterprise CRM
+      production at scale. Not competitors &mdash; they validate the market exists.
+    </div>
+    <div class="mkt-dive-edge">
+      Market validation: their adoption proves demand; their limitations define Beethoven&rsquo;s moat.
+    </div>
+  </div>
+
+</div>
+
+<!-- 6. The Procurement Moat -->
+<h3 class="subsection-heading">The Procurement Moat</h3>
+<div class="callout mkt-amber-callout">
+  <strong>Trust Architecture IS the Product</strong><br>
+  Enterprise procurement for AI tools is increasingly blocked by security reviews that generic platforms
+  cannot pass. A Beethoven deployment that ships with documented FLS enforcement, PII masking evidence,
+  append-only audit logs, and GDPR cache invalidation has a dramatically shorter enterprise sales cycle
+  than any tool that must undergo retroactive security hardening. The trust architecture IS the product.
+</div>
+
+<!-- 7. Future Outlook -->
+<h3 class="subsection-heading">Future Outlook: The Autonomous Interface</h3>
+<div class="callout mkt-indigo-callout">
+  <strong>Looking Toward 2028</strong><br>
+  GenUI evolves from reactive (user asks &rarr; UI generated) to proactive (statistical anomaly detected
+  &rarr; UI surface pushes insight). If the DataProfiler detects a significant outlier in pipeline data,
+  Beethoven proactively renders an Anomaly Analysis component &mdash; before the user asks. This is the
+  &ldquo;Autonomous User Interface&rdquo; era. Beethoven&rsquo;s statistical intelligence layer is the
+  foundation.
+</div>

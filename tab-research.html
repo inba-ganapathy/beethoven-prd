@@ -1,0 +1,446 @@
+<style>
+  /* Research Prompt local styles — prefix .rp- */
+
+  .rp-copy-btn {
+    display: block;
+    width: 100%;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 0.9rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.01em;
+    transition: background 0.2s, transform 0.1s;
+    margin: 1.25rem 0;
+    text-align: center;
+  }
+
+  .rp-copy-btn:hover {
+    background: #4f51d8;
+    transform: translateY(-1px);
+  }
+
+  .rp-copy-btn:active {
+    transform: translateY(0);
+  }
+
+  .rp-copy-btn.rp-copied {
+    background: var(--accent) !important;
+  }
+
+  /* Details / Summary collapsible */
+  .rp-details {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .rp-details[open] {
+    border-color: var(--primary);
+  }
+
+  .rp-details[open].rp-area-1 { border-left: 3px solid var(--primary); }
+  .rp-details[open].rp-area-2 { border-left: 3px solid var(--accent); }
+  .rp-details[open].rp-area-3 { border-left: 3px solid var(--warn); }
+  .rp-details[open].rp-area-4 { border-left: 3px solid #ec4899; }
+  .rp-details[open].rp-area-5 { border-left: 3px solid var(--danger); }
+
+  .rp-summary {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.9rem 1.1rem;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .rp-summary::-webkit-details-marker { display: none; }
+
+  .rp-summary-title {
+    flex: 1;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .rp-chevron {
+    color: var(--muted);
+    font-size: 0.8rem;
+    transition: transform 0.2s;
+    display: inline-block;
+  }
+
+  .rp-details[open] .rp-chevron {
+    transform: rotate(90deg);
+  }
+
+  .rp-area-badge {
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 3px 9px;
+    border-radius: 20px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .rp-badge-1 { background: rgba(99,102,241,0.18); color: var(--primary); }
+  .rp-badge-2 { background: rgba(16,185,129,0.18); color: var(--accent); }
+  .rp-badge-3 { background: rgba(245,158,11,0.18); color: var(--warn); }
+  .rp-badge-4 { background: rgba(236,72,153,0.18); color: #ec4899; }
+  .rp-badge-5 { background: rgba(239,68,68,0.18); color: var(--danger); }
+
+  .rp-questions {
+    padding: 0 1.1rem 1rem 1.1rem;
+  }
+
+  .rp-q-item {
+    display: flex;
+    gap: 0.7rem;
+    padding: 0.5rem 0;
+    border-top: 1px solid var(--border);
+    align-items: flex-start;
+  }
+
+  .rp-q-num {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--primary);
+    background: rgba(99,102,241,0.12);
+    border-radius: 4px;
+    padding: 2px 6px;
+    white-space: nowrap;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .rp-q-text {
+    font-size: 0.825rem;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  /* Takeaways box */
+  .rp-takeaways {
+    background: rgba(16,185,129,0.07);
+    border: 1px solid var(--accent);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .rp-takeaways-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .rp-takeaways ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .rp-takeaways ul li {
+    font-size: 0.83rem;
+    color: var(--text);
+    line-height: 1.55;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+
+  .rp-takeaways ul li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 900;
+  }
+
+  .callout.rp-amber-callout {
+    border-left-color: var(--warn);
+    background: rgba(245, 158, 11, 0.07);
+  }
+</style>
+
+<!-- ===== RESEARCH PROMPT ===== -->
+
+<h2 class="section-heading">Gemini Deep Research Prompt</h2>
+
+<!-- Intro callout -->
+<div class="callout rp-amber-callout">
+  <strong>Ready for Gemini Deep Research</strong><br>
+  The following prompt covers <strong>5 areas</strong> and <strong>25 specific technical questions</strong>.
+  Submit to Gemini&rsquo;s deep research mode for additional strategic intelligence to sharpen our technical
+  specifications.
+</div>
+
+<!-- Copy button -->
+<button
+  class="rp-copy-btn"
+  id="rp-copy-btn"
+  onclick="(function(btn) {
+    const prompt = `BEETHOVEN GENUI — GEMINI DEEP RESEARCH PROMPT
+5 Areas · 25 Specific Technical Questions
+==============================================
+
+AREA 1: Statistical Visualization Recommendation
+
+1a. VizML (MIT CHI 2019) production status 2019-2026? Successor papers? Failure modes on CRM sparse data?
+1b. Draco 2 Python API for custom soft constraints? Runtime weight updates without recompilation?
+1c. ThoughtSpot Sage — statistical profiling, fine-tuned model, or LLM? Failure modes on financial data?
+1d. Production method to distinguish time-series vs snapshot-with-date vs longitudinal panel? Python libs?
+1e. Salesforce Metadata API field-level semantic type annotations? API endpoint and field structure?
+
+AREA 2: A2UI v0.8 Specification
+
+2a. Canonical public spec for A2UI v0.8? GitHub repo? JSON schema?
+2b. Adjacency list node JSON schema — required vs optional fields? Parent-child encoding?
+2c. Path binding for SF relationship fields — can /opportunity/account/name traverse lookups?
+2d. Python async (FastAPI + asyncio) equivalent of ThreadLocal for concurrent A2UI sessions?
+2e. Official A2UI v0.8 renderers — Flutter, Lit, Angular? Installation paths?
+
+AREA 3: AG-UI Protocol
+
+3a. Exact JSON schema for AG-UI StateDelta — property change, insertion, deletion, layout restructure?
+3b. Optimistic UI updates — rollback mechanism in AG-UI?
+3c. AG-UI + OpenTelemetry integration pattern?
+3d. Python SDK for AG-UI events from FastAPI — package name?
+3e. Enterprise companies with documented AG-UI production deployments?
+
+AREA 4: Salesforce Platform
+
+4a. Technical path for injecting generated LWC into Agentforce response at runtime? Rich response format?
+4b. Salesforce Metadata API FLS for Python service — auth pattern for current user's session?
+4c. LDS cache invalidation API — can generated component hook into LDS refresh events?
+4d. LMS constraints in Agentforce-embedded context — can generated component publish LMS events?
+4e. AppExchange security review requirements for AI-generated UI — data masking, audit log, FLS patterns?
+
+AREA 5: Market Evidence
+
+5a. Documented semantic caching deployments with vector similarity in Salesforce/CRM context? Hit rates?
+5b. Production failure rate of freeform AI UI (Claude Artifacts, Gemini Canvas) for CRM visualization?
+5c. Gartner/Forrester/IDC research on AI-generated enterprise UI — market size 2025-2028?
+5d. Venture-funded startups targeting AI-generated enterprise UI — technical differentiation?
+5e. ServiceNow Otto AI architecture for UI generation — catalog vs freeform? Production quality?
+`;
+    navigator.clipboard.writeText(prompt).then(function() {
+      btn.textContent = '✓ Copied!';
+      btn.classList.add('rp-copied');
+      setTimeout(function() {
+        btn.textContent = '📋 Copy Full Prompt';
+        btn.classList.remove('rp-copied');
+      }, 2000);
+    }).catch(function() {
+      btn.textContent = '⚠ Copy failed — check clipboard permissions';
+      setTimeout(function() { btn.textContent = '📋 Copy Full Prompt'; }, 2500);
+    });
+  })(this)"
+>
+  📋 Copy Full Prompt
+</button>
+
+<!-- Collapsible Areas -->
+<h3 class="subsection-heading">Browse by Research Area</h3>
+
+<!-- Area 1 -->
+<details class="rp-details rp-area-1">
+  <summary class="rp-summary">
+    <span class="rp-area-badge rp-badge-1">Area 1</span>
+    <span class="rp-summary-title">Statistical Visualization Recommendation</span>
+    <span class="rp-chevron">▶</span>
+  </summary>
+  <div class="rp-questions">
+    <div class="rp-q-item">
+      <span class="rp-q-num">1a</span>
+      <span class="rp-q-text">VizML (MIT CHI 2019) production status 2019&ndash;2026? Successor papers? Failure modes on CRM sparse data?</span>
+    </div>
+    <div class="rp-q-item">
+      <span class="rp-q-num">1b</span>
+      <span class="rp-q-text">Draco 2 Python API for custom soft constraints? Runtime weight updates without recompilation?</span>
+    </div>
+    <div class="rp-q-item">
+      <span class="rp-q-num">1c</span>
+      <span class="rp-q-text">ThoughtSpot Sage &mdash; statistical profiling, fine-tuned model, or LLM? Failure modes on financial data?</span>
+    </div>
+    <div class="rp-q-item">
+      <span class="rp-q-num">1d</span>
+      <span class="rp-q-text">Production method to distinguish time-series vs snapshot-with-date vs longitudinal panel? Python libs?</span>
+    </div>
+    <div class="rp-q-item">
+      <span class="rp-q-num">1e</span>
+      <span class="rp-q-text">Salesforce Metadata API field-level semantic type annotations? API endpoint and field structure?</span>
+    </div>
+  </div>
+</details>
+
+<!-- Area 2 -->
+<details class="rp-details rp-area-2">
+  <summary class="rp-summary">
+    <span class="rp-area-badge rp-badge-2">Area 2</span>
+    <span class="rp-summary-title">A2UI v0.8 Specification</span>
+    <span class="rp-chevron">▶</span>
+  </summary>
+  <div class="rp-questions">
+    <div class="rp-q-item">
+      <span class="rp-q-num">2a</span>
+      <span class="rp-q-text">Canonical public spec for A2UI v0.8? GitHub repo? JSON schema?</span>
+    </div>
+    <div class="rp-q-item">
+      <span class="rp-q-num">2b</span>
+      <span class="rp-q-text">Adjacency list node JSON schema &mdash; required vs optional fields? Parent-child encoding?</span>
+    </div>
+    <div class="rp-q-item">
+      <span class="rp-q-num">2c</span>
+      <span class="rp-q-text">Path binding for SF relationship fields &mdash; can <code style="font-size:0.78rem;color:var(--accent);">/opportunity/account/name</code> traverse lookups?</span>
+    </div>
+    <div class="rp-q-item">
+      <span class="rp-q-num">2d</span>
+      <span class="rp-q-text">Python async (FastAPI + asyncio) equivalent of ThreadLocal for concurrent A2UI sessions?</span>
+    </div>
+    <div class="rp-q-item">
+      <span class="rp-q-num">2e</span>
+      <span class="rp-q-text">Official A2UI v0.8 renderers &mdash; Flutter, Lit, Angular? Installation paths?</span>
+    </div>
+  </div>
+</details>
+
+<!-- Area 3 -->
+<details class="rp-details rp-area-3">
+  <summary class="rp-summary">
+    <span class="rp-area-badge rp-badge-3">Area 3</span>
+    <span class="rp-summary-title">AG-UI Protocol</span>
+    <span class="rp-chevron">▶</span>
+  </summary>
+  <div class="rp-questions">
+    <div class="rp-q-item">
+      <span class="rp-q-num">3a</span>
+      <span class="rp-q-text">Exact JSON schema for AG-UI StateDelta &mdash; property change, insertion, deletion, layout restructure?</span>
+    </div>
+    <div class="rp-q-item">
+      <span class="rp-q-num">3b</span>
+      <span class="rp-q-text">Optimistic UI updates &mdash; rollback mechanism in AG-UI?</span>
+    </div>
+    <div class="rp-q-item">
+      <span class="rp-q-num">3c</span>
+      <span class="rp-q-text">AG-UI + OpenTelemetry integration pattern?</span>
+    </div>
+    <div class="rp-q-item">
+      <span class="rp-q-num">3d</span>
+      <span class="rp-q-text">Python SDK for AG-UI events from FastAPI &mdash; package name?</span>
+    </div>
+    <div class="rp-q-item">
+      <span class="rp-q-num">3e</span>
+      <span class="rp-q-text">Enterprise companies with documented AG-UI production deployments?</span>
+    </div>
+  </div>
+</details>
+
+<!-- Area 4 -->
+<details class="rp-details rp-area-4">
+  <summary class="rp-summary">
+    <span class="rp-area-badge rp-badge-4">Area 4</span>
+    <span class="rp-summary-title">Salesforce Platform</span>
+    <span class="rp-chevron">▶</span>
+  </summary>
+  <div class="rp-questions">
+    <div class="rp-q-item">
+      <span class="rp-q-num">4a</span>
+      <span class="rp-q-text">Technical path for injecting generated LWC into Agentforce response at runtime? Rich response format?</span>
+    </div>
+    <div class="rp-q-item">
+      <span class="rp-q-num">4b</span>
+      <span class="rp-q-text">Salesforce Metadata API FLS for Python service &mdash; auth pattern for current user&rsquo;s session?</span>
+    </div>
+    <div class="rp-q-item">
+      <span class="rp-q-num">4c</span>
+      <span class="rp-q-text">LDS cache invalidation API &mdash; can generated component hook into LDS refresh events?</span>
+    </div>
+    <div class="rp-q-item">
+      <span class="rp-q-num">4d</span>
+      <span class="rp-q-text">LMS constraints in Agentforce-embedded context &mdash; can generated component publish LMS events?</span>
+    </div>
+    <div class="rp-q-item">
+      <span class="rp-q-num">4e</span>
+      <span class="rp-q-text">AppExchange security review requirements for AI-generated UI &mdash; data masking, audit log, FLS patterns?</span>
+    </div>
+  </div>
+</details>
+
+<!-- Area 5 -->
+<details class="rp-details rp-area-5">
+  <summary class="rp-summary">
+    <span class="rp-area-badge rp-badge-5">Area 5</span>
+    <span class="rp-summary-title">Market Evidence</span>
+    <span class="rp-chevron">▶</span>
+  </summary>
+  <div class="rp-questions">
+    <div class="rp-q-item">
+      <span class="rp-q-num">5a</span>
+      <span class="rp-q-text">Documented semantic caching deployments with vector similarity in Salesforce/CRM context? Hit rates?</span>
+    </div>
+    <div class="rp-q-item">
+      <span class="rp-q-num">5b</span>
+      <span class="rp-q-text">Production failure rate of freeform AI UI (Claude Artifacts, Gemini Canvas) for CRM visualization?</span>
+    </div>
+    <div class="rp-q-item">
+      <span class="rp-q-num">5c</span>
+      <span class="rp-q-text">Gartner/Forrester/IDC research on AI-generated enterprise UI &mdash; market size 2025&ndash;2028?</span>
+    </div>
+    <div class="rp-q-item">
+      <span class="rp-q-num">5d</span>
+      <span class="rp-q-text">Venture-funded startups targeting AI-generated enterprise UI &mdash; technical differentiation?</span>
+    </div>
+    <div class="rp-q-item">
+      <span class="rp-q-num">5e</span>
+      <span class="rp-q-text">ServiceNow Otto AI architecture for UI generation &mdash; catalog vs freeform? Production quality?</span>
+    </div>
+  </div>
+</details>
+
+<!-- Key Takeaways -->
+<div class="rp-takeaways">
+  <div class="rp-takeaways-title">
+    <span>✦</span> 6 Key Strategic Takeaways
+  </div>
+  <ul>
+    <li>
+      General-purpose AI surfaces (Claude Artifacts, Gemini Canvas) are <strong>StateSnapshot systems</strong> &mdash;
+      full re-render every turn, no interactive state preservation.
+    </li>
+    <li>
+      Google A2UI v0.8 validates the catalog-based generation model but only has generic primitives &mdash;
+      no CRM schema, no semantic cache.
+    </li>
+    <li>
+      <strong>Constrained generation</strong> (statistical profiling &rarr; LLM confirmation) is academically validated
+      by Portal UX Agent (arxiv 2511.00843) and Draco 2 (CMU, VIS 2023).
+    </li>
+    <li>
+      Tableau Pulse proves enterprise users trust constrained, deterministic UI &mdash; the fixed insight
+      taxonomy <em>IS</em> the UX.
+    </li>
+    <li>
+      Beethoven&rsquo;s three-tier semantic cache + data binding templates is the <strong>performance moat</strong>:
+      65% hit rate &rarr; avg latency drops from 10s to &lt;100ms.
+    </li>
+    <li>
+      The <strong>enterprise trust gap</strong> (FLS + PII masking + audit logging) is the procurement moat &mdash;
+      no generic surface has a documented answer.
+    </li>
+  </ul>
+</div>

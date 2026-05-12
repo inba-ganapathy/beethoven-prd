@@ -1,0 +1,215 @@
+<!-- chunk_broken.html — "What Needs to Improve" tab content -->
+
+<!-- Hero Stat Bar -->
+<div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:24px 32px; margin-bottom:32px;">
+  <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:16px; text-align:center;">
+
+    <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
+      <span style="font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted);">Current State</span>
+      <span style="font-size:2.6rem; font-weight:800; color:var(--danger); line-height:1;">~75%</span>
+      <span style="font-size:13px; color:var(--text); font-weight:500; text-align:center;">Component Selection Accuracy</span>
+    </div>
+
+    <div style="display:flex; flex-direction:column; align-items:center; gap:4px; border-left:1px solid var(--border); padding-left:16px;">
+      <span style="font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted);">Current State</span>
+      <span style="font-size:2.6rem; font-weight:800; color:var(--warn); line-height:1;">10-12s</span>
+      <span style="font-size:13px; color:var(--text); font-weight:500; text-align:center;">Avg Generation Latency</span>
+    </div>
+
+    <div style="display:flex; flex-direction:column; align-items:center; gap:4px; border-left:1px solid var(--border); padding-left:16px;">
+      <span style="font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted);">Current State</span>
+      <span style="font-size:2.6rem; font-weight:800; color:var(--danger); line-height:1;">0%</span>
+      <span style="font-size:13px; color:var(--text); font-weight:500; text-align:center;">FLS Enforcement</span>
+    </div>
+
+    <div style="display:flex; flex-direction:column; align-items:center; gap:4px; border-left:1px solid var(--border); padding-left:16px;">
+      <span style="font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted);">Current State</span>
+      <span style="font-size:2.6rem; font-weight:800; color:var(--warn); line-height:1;">15%</span>
+      <span style="font-size:13px; color:var(--text); font-weight:500; text-align:center;">Cache Hit Rate</span>
+    </div>
+
+    <div style="display:flex; flex-direction:column; align-items:center; gap:4px; border-left:1px solid var(--border); padding-left:16px;">
+      <span style="font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted);">Current State</span>
+      <span style="font-size:2.6rem; font-weight:800; color:var(--warn); line-height:1;">1</span>
+      <span style="font-size:13px; color:var(--text); font-weight:500; text-align:center;">Render Surface Supported</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- Section Heading -->
+<h2 class="section-heading">The 5 Critical Gaps</h2>
+
+<!-- Gap Cards -->
+<div style="display:flex; flex-direction:column; gap:16px; margin-bottom:40px;">
+
+  <!-- Gap 1 -->
+  <div class="problem-card" style="background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--danger); border-radius:8px; padding:24px 28px;">
+    <div style="display:flex; align-items:flex-start; gap:16px;">
+      <span class="badge" style="background:rgba(239,68,68,.15); color:var(--danger); font-size:11px; font-weight:700; padding:4px 10px; border-radius:4px; white-space:nowrap; flex-shrink:0; margin-top:2px;">GAP 1</span>
+      <div style="flex:1;">
+        <h3 style="font-size:1.05rem; font-weight:700; color:var(--text); margin:0 0 10px 0;">Probabilistic Component Selection</h3>
+        <p style="font-size:14px; color:var(--muted); line-height:1.7; margin:0 0 14px 0;">
+          LLM-only approaches achieve ~70-75% accuracy. The model generates a 50-slice pie chart because pie charts dominate its training set, regardless of cardinality. No statistical override layer exists.
+        </p>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:12px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;">Impact</span>
+          <span class="tag" style="background:rgba(239,68,68,.15); color:var(--danger); font-size:12px; font-weight:600; padding:3px 10px; border-radius:4px; border:1px solid rgba(239,68,68,.3);">25-30% wrong UI rendered</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gap 2 -->
+  <div class="problem-card" style="background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--danger); border-radius:8px; padding:24px 28px;">
+    <div style="display:flex; align-items:flex-start; gap:16px;">
+      <span class="badge" style="background:rgba(239,68,68,.15); color:var(--danger); font-size:11px; font-weight:700; padding:4px 10px; border-radius:4px; white-space:nowrap; flex-shrink:0; margin-top:2px;">GAP 2</span>
+      <div style="flex:1;">
+        <h3 style="font-size:1.05rem; font-weight:700; color:var(--text); margin:0 0 10px 0;">StateSnapshot Full Re-render</h3>
+        <p style="font-size:14px; color:var(--muted); line-height:1.7; margin:0 0 14px 0;">
+          Every follow-up question regenerates the entire UI from scratch (Claude Artifacts model). A user who filters a table and then asks &ldquo;highlight deals closing this month&rdquo; gets a completely fresh render &mdash; scroll position lost, filter state reset, user context destroyed. Multi-turn enterprise workflows are impossible.
+        </p>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:12px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;">Impact</span>
+          <span class="tag" style="background:rgba(239,68,68,.15); color:var(--danger); font-size:12px; font-weight:600; padding:3px 10px; border-radius:4px; border:1px solid rgba(239,68,68,.3);">100% state loss on every turn</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gap 3 -->
+  <div class="problem-card" style="background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--danger); border-radius:8px; padding:24px 28px;">
+    <div style="display:flex; align-items:flex-start; gap:16px;">
+      <span class="badge" style="background:rgba(239,68,68,.15); color:var(--danger); font-size:11px; font-weight:700; padding:4px 10px; border-radius:4px; white-space:nowrap; flex-shrink:0; margin-top:2px;">GAP 3</span>
+      <div style="flex:1;">
+        <h3 style="font-size:1.05rem; font-weight:700; color:var(--text); margin:0 0 10px 0;">No Enterprise Security Layer</h3>
+        <p style="font-size:14px; color:var(--muted); line-height:1.7; margin:0 0 14px 0;">
+          Raw CRM data payloads are sent to LLM providers with zero FLS (Field Level Security) enforcement. A user without access to <code style="background:var(--code-bg); padding:1px 5px; border-radius:3px; font-size:13px;">Opportunity.Amount</code> can see it in a generated dashboard. No PII masking, no audit trail. Unacceptable for any enterprise security review.
+        </p>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:12px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;">Impact</span>
+          <span class="tag" style="background:rgba(239,68,68,.15); color:var(--danger); font-size:12px; font-weight:600; padding:3px 10px; border-radius:4px; border:1px solid rgba(239,68,68,.3);">Compliance blocker for AppExchange</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gap 4 -->
+  <div class="problem-card" style="background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--warn); border-radius:8px; padding:24px 28px;">
+    <div style="display:flex; align-items:flex-start; gap:16px;">
+      <span class="badge" style="background:rgba(245,158,11,.12); color:var(--warn); font-size:11px; font-weight:700; padding:4px 10px; border-radius:4px; white-space:nowrap; flex-shrink:0; margin-top:2px;">GAP 4</span>
+      <div style="flex:1;">
+        <h3 style="font-size:1.05rem; font-weight:700; color:var(--text); margin:0 0 10px 0;">Cold-Start Every Time &mdash; No Learning</h3>
+        <p style="font-size:14px; color:var(--muted); line-height:1.7; margin:0 0 14px 0;">
+          The 1,000th sales rep asking &ldquo;show me my pipeline&rdquo; gets the same 10-second LLM inference as the 1st. No template reuse, no quality evolution, no semantic matching. Successful patterns are discarded after every generation.
+        </p>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:12px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;">Impact</span>
+          <span class="tag" style="background:rgba(245,158,11,.12); color:var(--warn); font-size:12px; font-weight:600; padding:3px 10px; border-radius:4px; border:1px solid rgba(245,158,11,.3);">10s average latency, no improvement over time</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gap 5 -->
+  <div class="problem-card" style="background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--warn); border-radius:8px; padding:24px 28px;">
+    <div style="display:flex; align-items:flex-start; gap:16px;">
+      <span class="badge" style="background:rgba(245,158,11,.12); color:var(--warn); font-size:11px; font-weight:700; padding:4px 10px; border-radius:4px; white-space:nowrap; flex-shrink:0; margin-top:2px;">GAP 5</span>
+      <div style="flex:1;">
+        <h3 style="font-size:1.05rem; font-weight:700; color:var(--text); margin:0 0 10px 0;">Single Intelligence Pipeline</h3>
+        <p style="font-size:14px; color:var(--muted); line-height:1.7; margin:0 0 14px 0;">
+          Beethoven outputs a structured component description (referred to internally as Lightning UEM — the project's name for the JSON format that describes which Lightning components to render and how). A separate Salesforce rendering service converts this into surface-specific code for each target (Agentforce chat, mobile, etc.). The gap is not in rendering — it is in the <em>intelligence layer</em>: the same semantic understanding, CRM schema detection, statistical profiling, and semantic cache that powers Lightning UI is not yet shared with other agentic surfaces. A Slack user asking the same question gets no benefit from Beethoven's component selection logic or cached templates. Enterprise organizations need one unified intelligence pipeline serving all surfaces consistently.
+        </p>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:12px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.06em;">Impact</span>
+          <span class="tag" style="background:rgba(245,158,11,.12); color:var(--warn); font-size:12px; font-weight:600; padding:3px 10px; border-radius:4px; border:1px solid rgba(245,158,11,.3);">Intelligence not shared across surfaces</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Comparison Section -->
+<h2 class="section-heading">Why General-Purpose Surfaces Don&rsquo;t Solve This</h2>
+
+<div style="overflow-x:auto; margin-bottom:32px;">
+  <table class="data-table" style="width:100%; border-collapse:collapse; font-size:13.5px;">
+    <thead>
+      <tr style="background:var(--surface2);">
+        <th style="padding:12px 16px; text-align:left; font-weight:600; color:var(--muted); text-transform:uppercase; font-size:11px; letter-spacing:.06em; border-bottom:1px solid var(--border);">Platform</th>
+        <th style="padding:12px 16px; text-align:left; font-weight:600; color:var(--muted); text-transform:uppercase; font-size:11px; letter-spacing:.06em; border-bottom:1px solid var(--border);">Generation Model</th>
+        <th style="padding:12px 16px; text-align:center; font-weight:600; color:var(--muted); text-transform:uppercase; font-size:11px; letter-spacing:.06em; border-bottom:1px solid var(--border);">CRM Schema Aware</th>
+        <th style="padding:12px 16px; text-align:center; font-weight:600; color:var(--muted); text-transform:uppercase; font-size:11px; letter-spacing:.06em; border-bottom:1px solid var(--border);">FLS Enforcement</th>
+        <th style="padding:12px 16px; text-align:center; font-weight:600; color:var(--muted); text-transform:uppercase; font-size:11px; letter-spacing:.06em; border-bottom:1px solid var(--border);">Semantic Cache</th>
+        <th style="padding:12px 16px; text-align:center; font-weight:600; color:var(--muted); text-transform:uppercase; font-size:11px; letter-spacing:.06em; border-bottom:1px solid var(--border);">Multi-Surface</th>
+        <th style="padding:12px 16px; text-align:center; font-weight:600; color:var(--muted); text-transform:uppercase; font-size:11px; letter-spacing:.06em; border-bottom:1px solid var(--border);">StateDelta</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:12px 16px; color:var(--text); font-weight:500;">Claude Artifacts</td>
+        <td style="padding:12px 16px; color:var(--muted);">Freeform React sandbox</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--danger); font-size:16px;">&#x2717;</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--danger); font-size:16px;">&#x2717;</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--danger); font-size:16px;">&#x2717;</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--danger); font-size:16px;">&#x2717;</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--danger); font-size:16px;">&#x2717;</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:12px 16px; color:var(--text); font-weight:500;">Gemini Canvas</td>
+        <td style="padding:12px 16px; color:var(--muted);">Generic mini-app gen</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--danger); font-size:16px;">&#x2717;</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--danger); font-size:16px;">&#x2717;</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--danger); font-size:16px;">&#x2717;</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--danger); font-size:16px;">&#x2717;</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--danger); font-size:16px;">&#x2717;</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:12px 16px; color:var(--text); font-weight:500;">ChatGPT Canvas</td>
+        <td style="padding:12px 16px; color:var(--muted);">Doc/code editing</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--danger); font-size:16px;">&#x2717;</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--danger); font-size:16px;">&#x2717;</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--danger); font-size:16px;">&#x2717;</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--danger); font-size:16px;">&#x2717;</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--danger); font-size:16px;">&#x2717;</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:12px 16px; color:var(--text); font-weight:500;">Google A2UI</td>
+        <td style="padding:12px 16px; color:var(--muted);">Generic catalog primitives</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--danger); font-size:16px;">&#x2717;</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--danger); font-size:16px;">&#x2717;</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--danger); font-size:16px;">&#x2717;</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--warn); font-size:13px; font-weight:600;">Partial</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--accent); font-size:16px;">&#x2713;</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:12px 16px; color:var(--text); font-weight:500;">MS Adaptive Cards</td>
+        <td style="padding:12px 16px; color:var(--muted);">JSON declarative</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--danger); font-size:16px;">&#x2717;</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--danger); font-size:16px;">&#x2717;</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--danger); font-size:16px;">&#x2717;</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--muted); font-size:13px; font-weight:500;">M365 only</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--danger); font-size:16px;">&#x2717;</td>
+      </tr>
+      <!-- Beethoven target row — highlighted -->
+      <tr style="background:rgba(99,102,241,.12); border-bottom:1px solid rgba(99,102,241,.25);">
+        <td style="padding:12px 16px; color:var(--primary); font-weight:700;">Beethoven (target)</td>
+        <td style="padding:12px 16px; color:var(--muted);">Constrained gen + stats</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--accent); font-size:16px; font-weight:700;">&#x2713;</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--accent); font-size:16px; font-weight:700;">&#x2713;</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--accent); font-size:16px; font-weight:700;">&#x2713;</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--accent); font-size:16px; font-weight:700;">&#x2713;</td>
+        <td style="padding:12px 16px; text-align:center; color:var(--accent); font-size:16px; font-weight:700;">&#x2713;</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Key Insight Callout -->
+<div class="callout amber" style="background:rgba(245,158,11,.08); border:1px solid rgba(245,158,11,.3); border-left:4px solid var(--warn); border-radius:8px; padding:20px 24px; display:flex; gap:14px; align-items:flex-start;">
+  <span style="font-size:20px; flex-shrink:0; margin-top:1px;">&#x26a0;&#xfe0f;</span>
+  <p style="margin:0; font-size:14px; color:var(--text); line-height:1.75;">
+    The problem is not whether AI can generate UI. Every major platform can. The problem is whether it generates the <em>right</em> UI, with the <em>right</em> data binding, without violating <em>enterprise security policy</em>, fast enough to be useful. That gap is Beethoven&rsquo;s market.
+  </p>
+</div>

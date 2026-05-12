@@ -1,0 +1,329 @@
+<!-- chunk_fix.html — "How We Fix It" tab content -->
+
+<!-- Intro callout -->
+<div style="background:rgba(99,102,241,.08); border:1px solid rgba(99,102,241,.25); border-left:4px solid var(--primary); border-radius:8px; padding:20px 24px; margin-bottom:32px;">
+  <p style="margin:0; font-size:15px; color:var(--text); line-height:1.8;">
+    Each improvement below directly addresses one of the gaps on the previous tab. For each one you'll find: <strong style="color:var(--accent);">what the user experiences today</strong>, <strong style="color:var(--primary);">what they'll experience after the fix</strong>, and a plain-language explanation of the approach — no engineering background required.
+  </p>
+</div>
+
+<!-- Target metrics bar -->
+<div style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:24px 32px; margin-bottom:40px;">
+  <p style="margin:0 0 16px 0; font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); font-weight:700;">Where We're Headed — 24-Month Targets</p>
+  <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:16px; text-align:center;">
+    <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
+      <span style="font-size:2.4rem; font-weight:800; color:var(--accent); line-height:1;">≥94%</span>
+      <span style="font-size:13px; color:var(--text); font-weight:500;">Right UI, first time</span>
+      <span style="font-size:11px; color:var(--muted);">vs ~75% today</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:4px; border-left:1px solid var(--border); padding-left:16px;">
+      <span style="font-size:2.4rem; font-weight:800; color:var(--accent); line-height:1;">≤30ms</span>
+      <span style="font-size:13px; color:var(--text); font-weight:500;">Response for repeat queries</span>
+      <span style="font-size:11px; color:var(--muted);">vs 10–12s today</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:4px; border-left:1px solid var(--border); padding-left:16px;">
+      <span style="font-size:2.4rem; font-weight:800; color:var(--accent); line-height:1;">100%</span>
+      <span style="font-size:13px; color:var(--text); font-weight:500;">Data privacy enforced</span>
+      <span style="font-size:11px; color:var(--muted);">vs 0% today</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:4px; border-left:1px solid var(--border); padding-left:16px;">
+      <span style="font-size:2.4rem; font-weight:800; color:var(--accent); line-height:1;">≥65%</span>
+      <span style="font-size:13px; color:var(--text); font-weight:500;">Queries served instantly</span>
+      <span style="font-size:11px; color:var(--muted);">vs ~15% today</span>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:4px; border-left:1px solid var(--border); padding-left:16px;">
+      <span style="font-size:2.4rem; font-weight:800; color:var(--accent); line-height:1;">5</span>
+      <span style="font-size:13px; color:var(--text); font-weight:500;">Agent surfaces supported</span>
+      <span style="font-size:11px; color:var(--muted);">vs 1 today</span>
+    </div>
+  </div>
+</div>
+
+<h2 class="section-heading">7 Strategic Improvements</h2>
+
+<div style="display:flex; flex-direction:column; gap:24px; margin-bottom:52px;">
+
+  <!-- Improvement 1 -->
+  <div style="background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--accent); border-radius:10px; overflow:hidden;">
+    <div style="padding:22px 28px 0;">
+      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span style="background:rgba(99,102,241,.18); color:var(--primary); font-size:11px; font-weight:700; padding:4px 10px; border-radius:4px;">01</span>
+          <h3 style="font-size:1.1rem; font-weight:700; color:var(--text); margin:0;">Smarter Component Decisions — Stop Guessing, Start Knowing</h3>
+        </div>
+        <span style="background:rgba(99,102,241,.1); color:var(--primary); font-size:11px; font-weight:600; padding:3px 10px; border-radius:4px; border:1px solid rgba(99,102,241,.3); white-space:nowrap;">Q3 2026</span>
+      </div>
+      <p style="font-size:14.5px; color:var(--text); line-height:1.8; margin:0 0 20px 0;">
+        Right now, Beethoven asks the AI to decide what chart or component to use based purely on reading the text of the response — the same way a human would skim it. This works about 75% of the time, but fails in predictable ways. If someone asks about 500 accounts, the AI might suggest a pie chart with 500 slices. If the data has a clear date column, it might miss that this should be a trend line.
+      </p>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:0; border-top:1px solid var(--border);">
+      <div style="padding:18px 28px; border-right:1px solid var(--border);">
+        <p style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--danger); margin:0 0 10px 0;">Today's Experience</p>
+        <p style="font-size:13.5px; color:var(--muted); line-height:1.7; margin:0;">"Show me all our accounts by industry" → AI generates an unreadable pie chart with 47 slices, one per industry. User dismisses it and asks again.</p>
+      </div>
+      <div style="padding:18px 28px;">
+        <p style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); margin:0 0 10px 0;">After the Fix</p>
+        <p style="font-size:13.5px; color:var(--text); line-height:1.7; margin:0;">The system counts 47 distinct values before asking the AI anything, and rules out pie charts automatically. The AI confirms a horizontal bar chart — and it's right the first time.</p>
+      </div>
+    </div>
+    <div style="padding:16px 28px; background:var(--surface2); border-top:1px solid var(--border);">
+      <p style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin:0 0 8px 0;">How it works</p>
+      <p style="font-size:13.5px; color:var(--muted); line-height:1.7; margin:0;">Before calling the AI, Beethoven profiles the data mathematically — counting unique values, detecting date patterns, measuring distribution shape, and checking for hierarchy. These facts become firm rules: more than 20 categories → no pie chart, ever. Time-series data → always offer a line chart first. The AI's job shifts from guessing the right answer to confirming the statistically correct one. This approach is drawn from the Draco 2 visualization research (University of Washington, 2023) and powers production tools like Tableau Pulse.</p>
+    </div>
+  </div>
+
+  <!-- Improvement 2 -->
+  <div style="background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--accent); border-radius:10px; overflow:hidden;">
+    <div style="padding:22px 28px 0;">
+      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span style="background:rgba(99,102,241,.18); color:var(--primary); font-size:11px; font-weight:700; padding:4px 10px; border-radius:4px;">02</span>
+          <h3 style="font-size:1.1rem; font-weight:700; color:var(--text); margin:0;">Instant Recognition of Salesforce Data — No AI Needed</h3>
+        </div>
+        <span style="background:rgba(99,102,241,.1); color:var(--primary); font-size:11px; font-weight:600; padding:3px 10px; border-radius:4px; border:1px solid rgba(99,102,241,.3); white-space:nowrap;">Q3 2026</span>
+      </div>
+      <p style="font-size:14.5px; color:var(--text); line-height:1.8; margin:0 0 20px 0;">
+        Salesforce has a well-known, stable data model. An Opportunity always has a Stage, Amount, and Close Date. A Case always has a Priority and Status. We don't need to ask an AI what kind of data this is — we can recognise it instantly from the field names and skip straight to the right visualisation.
+      </p>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:0; border-top:1px solid var(--border);">
+      <div style="padding:18px 28px; border-right:1px solid var(--border);">
+        <p style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--danger); margin:0 0 10px 0;">Today's Experience</p>
+        <p style="font-size:13.5px; color:var(--muted); line-height:1.7; margin:0;">Every pipeline query goes through full AI discovery — 1 to 2 seconds just to figure out "this is opportunity data, show a funnel." That reasoning cost is paid on every single request, even the thousandth identical one.</p>
+      </div>
+      <div style="padding:18px 28px;">
+        <p style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); margin:0 0 10px 0;">After the Fix</p>
+        <p style="font-size:13.5px; color:var(--text); line-height:1.7; margin:0;">Beethoven sees "StageName + Amount + CloseDate" and immediately knows to render an Opportunity Pipeline Dashboard — no AI call needed for this decision. The AI is reserved for genuinely ambiguous or custom data shapes.</p>
+      </div>
+    </div>
+    <div style="padding:16px 28px; background:var(--surface2); border-top:1px solid var(--border);">
+      <p style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin:0 0 8px 0;">How it works</p>
+      <p style="font-size:13.5px; color:var(--muted); line-height:1.7; margin:0;">Beethoven maintains a lookup of Salesforce object signatures — combinations of field names that uniquely identify object types. When there's an exact match, a pre-built domain composite (e.g. OpportunityPipelineDashboard, AccountHealthScorecard, CasePriorityMatrix) is selected directly. Partial matches inject hints into the AI prompt so it still benefits from context. The Salesforce Metadata API also provides field type annotations (currency, picklist, date, formula) that further inform the component choice without any AI inference.</p>
+    </div>
+  </div>
+
+  <!-- Improvement 3 -->
+  <div style="background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--danger); border-radius:10px; overflow:hidden;">
+    <div style="padding:22px 28px 0;">
+      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span style="background:rgba(99,102,241,.18); color:var(--primary); font-size:11px; font-weight:700; padding:4px 10px; border-radius:4px;">03</span>
+          <h3 style="font-size:1.1rem; font-weight:700; color:var(--text); margin:0;">Data Privacy Built In — Customer Data Never Leaves Salesforce</h3>
+        </div>
+        <span style="background:rgba(239,68,68,.1); color:var(--danger); font-size:11px; font-weight:600; padding:3px 10px; border-radius:4px; border:1px solid rgba(239,68,68,.3); white-space:nowrap;">Q3 2026 · Security Critical</span>
+      </div>
+      <p style="font-size:14.5px; color:var(--text); line-height:1.8; margin:0 0 20px 0;">
+        This is the most important improvement for enterprise adoption. Today, when Beethoven generates a UI, the full data payload — including customer names, deal amounts, contact details — is sent to an external AI service to decide which components to use. This means a user who doesn't have permission to see a field could have that field's value sent to an AI anyway. There's also no record of what the AI generated or what data it saw.
+      </p>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:0; border-top:1px solid var(--border);">
+      <div style="padding:18px 28px; border-right:1px solid var(--border);">
+        <p style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--danger); margin:0 0 10px 0;">Today's Experience</p>
+        <p style="font-size:13.5px; color:var(--muted); line-height:1.7; margin:0;">A sales rep's customer data — including fields they may not be authorised to view — is bundled and sent to an external AI to generate the UI. No audit trail exists. Security teams have no answer when asked "where did this data go?"</p>
+      </div>
+      <div style="padding:18px 28px;">
+        <p style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); margin:0 0 10px 0;">After the Fix</p>
+        <p style="font-size:13.5px; color:var(--text); line-height:1.7; margin:0;">The AI only ever sees the structure of the data — field names, types, and counts — never the actual values. Real customer data is fetched directly from Salesforce by the user's own browser session after the UI layout has been decided. Every generation event is logged with a full audit trail.</p>
+      </div>
+    </div>
+    <div style="padding:16px 28px; background:var(--surface2); border-top:1px solid var(--border);">
+      <p style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin:0 0 8px 0;">How it works</p>
+      <p style="font-size:13.5px; color:var(--muted); line-height:1.7; margin:0;">A "Governance Proxy" layer intercepts every request before anything reaches the AI. It checks the requesting user's Salesforce permissions, strips the actual values from restricted fields and replaces personal information with placeholders, then sends only anonymised structural metadata to the AI. Once the AI decides on a layout, the real values are loaded directly by the user's authenticated Salesforce session — they never pass through Beethoven's generation layer. Every generation is written to an append-only audit log. If a customer later requests data deletion (GDPR/CCPA), cached UI templates referencing their data are automatically purged within 24 hours.</p>
+    </div>
+  </div>
+
+  <!-- Improvement 4 -->
+  <div style="background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--accent); border-radius:10px; overflow:hidden;">
+    <div style="padding:22px 28px 0;">
+      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span style="background:rgba(99,102,241,.18); color:var(--primary); font-size:11px; font-weight:700; padding:4px 10px; border-radius:4px;">04</span>
+          <h3 style="font-size:1.1rem; font-weight:700; color:var(--text); margin:0;">Speed That Compounds Over Time — Every Query Makes the Next One Faster</h3>
+        </div>
+        <span style="background:rgba(99,102,241,.1); color:var(--primary); font-size:11px; font-weight:600; padding:3px 10px; border-radius:4px; border:1px solid rgba(99,102,241,.3); white-space:nowrap;">Now → Q4 2026</span>
+      </div>
+      <p style="font-size:14.5px; color:var(--text); line-height:1.8; margin:0 0 20px 0;">
+        Today, every single request to Beethoven triggers a full AI generation, regardless of whether someone asked an almost-identical question five minutes ago. There's no memory between requests. By the time your 1,000th sales rep asks "show me my pipeline," Beethoven still takes 10 seconds — the same as the first rep. This is a solved problem in the industry: a well-designed cache can handle the vast majority of common queries nearly instantly.
+      </p>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:0; border-top:1px solid var(--border);">
+      <div style="padding:18px 28px; border-right:1px solid var(--border);">
+        <p style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--danger); margin:0 0 10px 0;">Today's Experience</p>
+        <p style="font-size:13.5px; color:var(--muted); line-height:1.7; margin:0;">Rep #1 asks "show me my open opportunities" — 10 seconds. Rep #500 asks the same question three months later — still 10 seconds. Beethoven has learned nothing, cached nothing, improved nothing.</p>
+      </div>
+      <div style="padding:18px 28px;">
+        <p style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); margin:0 0 10px 0;">After the Fix</p>
+        <p style="font-size:13.5px; color:var(--text); line-height:1.7; margin:0;">Rep #500 gets a response in under 30ms — the layout was retrieved from cache, the live data was loaded directly from Salesforce. The cache has also learned which layouts work well and which get dismissed, so later responses are more accurate too.</p>
+      </div>
+    </div>
+    <div style="padding:16px 28px; background:var(--surface2); border-top:1px solid var(--border);">
+      <p style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin:0 0 8px 0;">How it works</p>
+      <p style="font-size:13.5px; color:var(--muted); line-height:1.7; margin:0;">Beethoven stores UI layout templates separately from data. A template for "pipeline overview" is a reusable skeleton with placeholders like "put the deal amount here" — the live Salesforce data fills in the blanks at render time. A three-tier cache handles lookups: an in-memory store for exact matches (milliseconds), a Salesforce-hosted store for per-org matches, and a semantic similarity store that can recognise that "show deals closing this quarter" and "what's my Q3 pipeline?" are really the same question. The cache tracks which templates users actually engage with and which they dismiss, automatically retiring poor-performing ones every six hours. Production systems using this approach achieve 60%+ of queries served from cache — turning a 10-second AI call into a sub-second response for the majority of daily usage.</p>
+    </div>
+  </div>
+
+  <!-- Improvement 5 -->
+  <div style="background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--accent); border-radius:10px; overflow:hidden;">
+    <div style="padding:22px 28px 0;">
+      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span style="background:rgba(99,102,241,.18); color:var(--primary); font-size:11px; font-weight:700; padding:4px 10px; border-radius:4px;">05</span>
+          <h3 style="font-size:1.1rem; font-weight:700; color:var(--text); margin:0;">One Intelligence Layer, Every Surface — Agentforce, Slack, Teams, and Beyond</h3>
+        </div>
+        <span style="background:rgba(99,102,241,.1); color:var(--primary); font-size:11px; font-weight:600; padding:3px 10px; border-radius:4px; border:1px solid rgba(99,102,241,.3); white-space:nowrap;">Q4 2026</span>
+      </div>
+      <p style="font-size:14.5px; color:var(--text); line-height:1.8; margin:0 0 20px 0;">
+        Beethoven's intelligence — knowing what data this is, what chart fits best, what the user likely wants — currently only benefits people using Agentforce. A sales rep asking the same question via a Slack bot, a Teams copilot, or a Gemini-powered assistant gets none of that intelligence. The UEM output that Beethoven produces is converted into surface-specific code by a separate Salesforce rendering service — but the smarts that decided <em>what</em> to render are not shared with other surfaces.
+      </p>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:0; border-top:1px solid var(--border);">
+      <div style="padding:18px 28px; border-right:1px solid var(--border);">
+        <p style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--danger); margin:0 0 10px 0;">Today's Experience</p>
+        <p style="font-size:13.5px; color:var(--muted); line-height:1.7; margin:0;">A rep using Agentforce gets a rich pipeline dashboard. The same rep asking the identical question in Slack gets a wall of plain text. The intelligence that produced the dashboard exists only for one surface.</p>
+      </div>
+      <div style="padding:18px 28px;">
+        <p style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); margin:0 0 10px 0;">After the Fix</p>
+        <p style="font-size:13.5px; color:var(--text); line-height:1.7; margin:0;">The same intelligence layer produces a structured message for Slack, a card for Teams, and a component for Agentforce — all from a single decision. The cache serves all three surfaces. A dismissed layout in Slack informs the Agentforce experience too.</p>
+      </div>
+    </div>
+    <div style="padding:16px 28px; background:var(--surface2); border-top:1px solid var(--border);">
+      <p style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin:0 0 8px 0;">How it works</p>
+      <p style="font-size:13.5px; color:var(--muted); line-height:1.7; margin:0;">Beethoven's orchestrator produces a surface-neutral "Component Plan" — a description of intent ("show a pipeline summary with a metric card and a bar chart broken down by stage") rather than surface-specific code. A Renderer Registry then translates this plan into whichever format the requesting surface needs: Lightning UEM for Agentforce (converted to surface code by Salesforce's existing rendering service), Block Kit for Slack, Adaptive Cards for Microsoft Teams, or the emerging A2UI open standard for any compatible client. The semantic cache, data profiling, and CRM schema intelligence are shared across all of them.</p>
+    </div>
+  </div>
+
+  <!-- Improvement 6 -->
+  <div style="background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--accent); border-radius:10px; overflow:hidden;">
+    <div style="padding:22px 28px 0;">
+      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span style="background:rgba(99,102,241,.18); color:var(--primary); font-size:11px; font-weight:700; padding:4px 10px; border-radius:4px;">06</span>
+          <h3 style="font-size:1.1rem; font-weight:700; color:var(--text); margin:0;">Conversations That Remember — No More Starting Over</h3>
+        </div>
+        <span style="background:rgba(99,102,241,.1); color:var(--primary); font-size:11px; font-weight:600; padding:3px 10px; border-radius:4px; border:1px solid rgba(99,102,241,.3); white-space:nowrap;">Q1 2027</span>
+      </div>
+      <p style="font-size:14.5px; color:var(--text); line-height:1.8; margin:0 0 20px 0;">
+        Every follow-up question in a conversation today causes a complete re-generation from scratch. If a sales rep asks "show me my pipeline," then follows up with "now highlight the deals closing this month" — Beethoven discards everything and rebuilds the entire UI. Any filters the rep had applied, any expanded sections, any scroll position — all gone. This is how most AI surfaces work today and it's a significant barrier to natural, multi-step workflows.
+      </p>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:0; border-top:1px solid var(--border);">
+      <div style="padding:18px 28px; border-right:1px solid var(--border);">
+        <p style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--danger); margin:0 0 10px 0;">Today's Experience</p>
+        <p style="font-size:13.5px; color:var(--muted); line-height:1.7; margin:0;">"Show pipeline" → 10s wait → dashboard appears → rep filters to Enterprise accounts → "now show just Q3" → 10s wait → completely new dashboard, filter gone, back to square one.</p>
+      </div>
+      <div style="padding:18px 28px;">
+        <p style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); margin:0 0 10px 0;">After the Fix</p>
+        <p style="font-size:13.5px; color:var(--text); line-height:1.7; margin:0;">"Show pipeline" → dashboard → filter to Enterprise → "now show just Q3" → the date filter updates in under a second. The Enterprise filter is still there. Only the changed part was regenerated. The conversation builds on itself.</p>
+      </div>
+    </div>
+    <div style="padding:16px 28px; background:var(--surface2); border-top:1px solid var(--border);">
+      <p style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin:0 0 8px 0;">How it works</p>
+      <p style="font-size:13.5px; color:var(--muted); line-height:1.7; margin:0;">Beethoven maintains a "UI Session" for each conversation — a snapshot of the current component layout that persists across turns. When a follow-up arrives, it calculates only what changed (a "diff") and applies minimal updates: swap a bar chart for a line chart, add a new metric card, update a date filter. The entire layout isn't rebuilt — only the affected pieces change. This is the same approach used by modern web frameworks like React, applied to AI-generated enterprise interfaces. Sessions are kept for 24 hours and align with the emerging AG-UI open standard for agentic interface updates.</p>
+    </div>
+  </div>
+
+  <!-- Improvement 7 -->
+  <div style="background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--accent); border-radius:10px; overflow:hidden;">
+    <div style="padding:22px 28px 0;">
+      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span style="background:rgba(99,102,241,.18); color:var(--primary); font-size:11px; font-weight:700; padding:4px 10px; border-radius:4px;">07</span>
+          <h3 style="font-size:1.1rem; font-weight:700; color:var(--text); margin:0;">A Standard API Any AI Agent Can Use — Beethoven as a Platform</h3>
+        </div>
+        <span style="background:rgba(99,102,241,.1); color:var(--primary); font-size:11px; font-weight:600; padding:3px 10px; border-radius:4px; border:1px solid rgba(99,102,241,.3); white-space:nowrap;">Q3 2026 · Q2 2027</span>
+      </div>
+      <p style="font-size:14.5px; color:var(--text); line-height:1.8; margin:0 0 20px 0;">
+        Today Beethoven is a service that Agentforce calls via a private REST API. No other AI agent, tool, or platform can discover or use it. As the AI ecosystem grows — Claude Code, GitHub Copilot, custom enterprise agents, third-party Salesforce apps — every one of them faces the same UI generation problem. Beethoven should be the shared answer, callable by any of them through open standards rather than requiring bespoke integrations for each.
+      </p>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:0; border-top:1px solid var(--border);">
+      <div style="padding:18px 28px; border-right:1px solid var(--border);">
+        <p style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--danger); margin:0 0 10px 0;">Today's Experience</p>
+        <p style="font-size:13.5px; color:var(--muted); line-height:1.7; margin:0;">A developer building a custom Agentforce agent has to build their own UI generation logic from scratch — or hardcode static templates. Beethoven's intelligence isn't accessible to them. Every new agent re-solves the same problem.</p>
+      </div>
+      <div style="padding:18px 28px;">
+        <p style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); margin:0 0 10px 0;">After the Fix</p>
+        <p style="font-size:13.5px; color:var(--text); line-height:1.7; margin:0;">A developer configures Beethoven as a tool in their AI agent — one line of config. The agent can then call "generate_ui" as naturally as it calls any other tool. The Lightning component catalog, statistical profiling, FLS enforcement, and semantic cache are all available through that one call.</p>
+      </div>
+    </div>
+    <div style="padding:16px 28px; background:var(--surface2); border-top:1px solid var(--border);">
+      <p style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin:0 0 8px 0;">How it works</p>
+      <p style="font-size:13.5px; color:var(--muted); line-height:1.7; margin:0;">Beethoven will be published as an MCP (Model Context Protocol) server — the open standard backed by Anthropic and adopted by every major AI tool including Claude, GitHub Copilot, and Cursor. Any MCP-compatible agent can discover and call Beethoven's tools without custom integration work. Later, Beethoven will also publish an A2A (Agent-to-Agent) card — Google's open protocol for agent capability discovery — making it findable by the next generation of agentic platforms. Think of this as turning Beethoven from a private internal service into a published capability that the entire Salesforce AI ecosystem can build on.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- Roadmap -->
+<h2 class="section-heading">Product Roadmap</h2>
+
+<div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-bottom:12px;">
+
+  <!-- Phase 1 -->
+  <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; overflow:hidden;">
+    <div style="background:rgba(99,102,241,.15); padding:18px 20px; border-bottom:1px solid rgba(99,102,241,.3);">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+        <span style="background:var(--primary); color:#fff; font-size:11px; font-weight:700; padding:3px 10px; border-radius:3px;">PHASE 1</span>
+        <span style="font-size:12px; color:var(--primary); font-weight:600;">Q3–Q4 2026</span>
+      </div>
+      <h4 style="margin:0 0 4px 0; font-size:1rem; font-weight:700; color:var(--text);">Foundation</h4>
+      <p style="margin:0; font-size:12px; color:var(--muted); line-height:1.5;">Make the core decisions smarter, faster, and secure enough for enterprise deployment</p>
+    </div>
+    <div style="padding:16px 20px;">
+      <ul style="margin:0; padding-left:16px; display:flex; flex-direction:column; gap:10px;">
+        <li style="font-size:13px; color:var(--text); line-height:1.6;"><strong>Smarter component selection</strong> — statistical profiling eliminates wrong chart choices</li>
+        <li style="font-size:13px; color:var(--text); line-height:1.6;"><strong>Salesforce object recognition</strong> — instant dashboards for known CRM data</li>
+        <li style="font-size:13px; color:var(--text); line-height:1.6;"><strong>Data privacy layer</strong> — FLS enforcement, PII masking, audit logging</li>
+        <li style="font-size:13px; color:var(--text); line-height:1.6;"><strong>Open API for agents</strong> — MCP server so any AI tool can call Beethoven</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Phase 2 -->
+  <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; overflow:hidden;">
+    <div style="background:rgba(16,185,129,.1); padding:18px 20px; border-bottom:1px solid rgba(16,185,129,.25);">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+        <span style="background:var(--accent); color:#0d1117; font-size:11px; font-weight:700; padding:3px 10px; border-radius:3px;">PHASE 2</span>
+        <span style="font-size:12px; color:var(--accent); font-weight:600;">Q4 2026–Q1 2027</span>
+      </div>
+      <h4 style="margin:0 0 4px 0; font-size:1rem; font-weight:700; color:var(--text);">Platform</h4>
+      <p style="margin:0; font-size:12px; color:var(--muted); line-height:1.5;">Expand reach and make the system learn from every interaction</p>
+    </div>
+    <div style="padding:16px 20px;">
+      <ul style="margin:0; padding-left:16px; display:flex; flex-direction:column; gap:10px;">
+        <li style="font-size:13px; color:var(--text); line-height:1.6;"><strong>Multi-surface intelligence</strong> — same smarts for Slack, Teams, and Agentforce</li>
+        <li style="font-size:13px; color:var(--text); line-height:1.6;"><strong>Conversational memory</strong> — follow-up questions refine the UI instead of replacing it</li>
+        <li style="font-size:13px; color:var(--text); line-height:1.6;"><strong>Self-improving cache</strong> — tracks which templates work, retires ones that don't</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Phase 3 -->
+  <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; overflow:hidden;">
+    <div style="background:rgba(245,158,11,.08); padding:18px 20px; border-bottom:1px solid rgba(245,158,11,.2);">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+        <span style="background:var(--warn); color:#0d1117; font-size:11px; font-weight:700; padding:3px 10px; border-radius:3px;">PHASE 3</span>
+        <span style="font-size:12px; color:var(--warn); font-weight:600;">Q2–Q4 2027</span>
+      </div>
+      <h4 style="margin:0 0 4px 0; font-size:1rem; font-weight:700; color:var(--text);">Intelligence</h4>
+      <p style="margin:0; font-size:12px; color:var(--muted); line-height:1.5;">Adapt to individual users and anticipate needs before they're expressed</p>
+    </div>
+    <div style="padding:16px 20px;">
+      <ul style="margin:0; padding-left:16px; display:flex; flex-direction:column; gap:10px;">
+        <li style="font-size:13px; color:var(--text); line-height:1.6;"><strong>Per-user preferences</strong> — learns whether this rep prefers charts or tables</li>
+        <li style="font-size:13px; color:var(--text); line-height:1.6;"><strong>Predictive pre-generation</strong> — prepares likely next views during idle time</li>
+        <li style="font-size:13px; color:var(--text); line-height:1.6;"><strong>Screenshot input</strong> — accept a mockup or existing UI as a generation target</li>
+        <li style="font-size:13px; color:var(--text); line-height:1.6;"><strong>Purpose-built model</strong> — a small, fast model trained specifically on Lightning UI decisions</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- Connector bars -->
+<div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-bottom:32px; padding:0 60px;">
+  <div style="height:3px; background:linear-gradient(90deg,rgba(99,102,241,.6),rgba(99,102,241,.15)); border-radius:2px;"></div>
+  <div style="height:3px; background:linear-gradient(90deg,rgba(16,185,129,.5),rgba(16,185,129,.1)); border-radius:2px;"></div>
+  <div style="height:3px; background:linear-gradient(90deg,rgba(245,158,11,.4),rgba(245,158,11,.05)); border-radius:2px;"></div>
+</div>
